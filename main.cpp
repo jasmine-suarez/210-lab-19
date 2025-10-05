@@ -6,6 +6,7 @@
 #include <cstdlib> // rand(), srand()
 #include <ctime>   // time()
 #include <fstream> // file input
+#include <vector>
 using namespace std;
 
 class Movie {
@@ -62,7 +63,7 @@ public:
 int main() {
     srand(time(0));
 
-    Movie movie1("Mamma Mia");
+    vector<Movie> movies = {}
 
     ifstream fin("reviews.txt");
 
@@ -72,7 +73,10 @@ int main() {
             double rating = (rand() % 41 + 10) / 10.0;
             movie1.addFront(rating, comment);
         }
+        fin.close();
     }
+    else
+        cout << "Input file not found.\n";
 
     movie1.output();
 
