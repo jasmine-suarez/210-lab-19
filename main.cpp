@@ -17,20 +17,52 @@ private:
     Node *head;
 
 public:
-    // constructor
+    // default constructor
     Movie(string movieTitle = "") {
         title = movieTitle;
         head = nullptr;
     }
 
+    // addFront() adds a review node to head of linked list.
+    // arguments: head, rating, comment
+    // returns: nothing
+    void addFront(double rating, string comment) {
+        Node *newNode = new Node;
+        newNode->rating = rating;
+        newNode->comment = comment;
+        newNode->next = head;
+        head = newNode;
+    }
+
+    // output() traverses linked list, outputs reviews, and calculates average rating
+    // arguments: head
+    // returns: nothing
+    void output() {
+    Node *current = head;
+    int count = 0;
+    double total = 0;
+
+    cout << "Outputting all reviews:" << endl;
+    while (current != nullptr) {
+        count++;
+        cout << "\t> Review #" << count << ": " << current->rating
+             << ": " << current->comment << endl;
+        
+        total += current->rating;
+        current = current->next;
+    }
+
+    cout << "\t> Average: " << total / count << endl;
+    }
+
 };
 
 // function prototypes
-void addFront(Node *&, double, string);
-void output(Node *);
+void addFront(double, string);
+void output();
 
 int main() {
-    Node *head = nullptr;
+    
 
     char inputMore = 'Y';
     while (inputMore == 'Y' || inputMore == 'y') {
@@ -54,36 +86,4 @@ int main() {
     output(head);
 
     return 0;
-}
-
-// addFront() adds a review node to head of linked list.
-// arguments: head, rating, comment
-// returns: nothing
-void addFront(Node *&head, double rating, string comment) {
-    Node *newNode = new Node;
-    newNode->rating = rating;
-    newNode->comment = comment;
-    newNode->next = head;
-    head = newNode;
-}
-
-// output() traverses linked list, outputs reviews, and calculates average rating
-// arguments: head
-// returns: nothing
-void output(Node *head) {
-    Node* current = head;
-    int count = 0;
-    double total = 0;
-
-    cout << "Outputting all reviews:" << endl;
-    while (current != nullptr) {
-        count++;
-        cout << "\t> Review #" << count << ": " << current->rating
-             << ": " << current->comment << endl;
-        
-        total += current->rating;
-        current = current->next;
-    }
-
-    cout << "\t> Average: " << total / count << endl;
 }
