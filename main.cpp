@@ -48,7 +48,7 @@ public:
         int count = 0;
         double total = 0;
 
-        cout << "Outputting all reviews:" << endl;
+        cout << "Movie: " << title << endl;
         while (current != nullptr) {
             count++;
             cout << "\t> Review #" << count << ": " << current->rating
@@ -72,23 +72,21 @@ int main() {
         Movie("Crazy Rich Asians")
     };
 
-    ifstream fin(filename);
-
     string comment;
-    int count = 0;
+    const int NUMREVIEWS = 3;
+
+    ifstream fin("reviews.txt");
     if (fin.good()) {
-        while (getline(fin, comment) && count < numReviews) {
-            double rating = (rand() % 41 + 10) / 10.0;
-            addFront(rating, comment);
-            count++;
+        for (auto &m : movies) {
+            for (int i = 0; i < NUMREVIEWS && getline(fin, comment); i++) {
+                double rating = (rand() % 41 + 10) / 10.0;
+                m.addFront(rating, comment);
+            }
         }
         fin.close();
     }
     else
         cout << "Input file not found.\n";
-
-    for (auto &m : movies)
-        m.reviewsFile("reviews.txt", 3);
 
     for (auto &m : movies)
         m.output();
