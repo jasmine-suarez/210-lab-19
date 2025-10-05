@@ -1,6 +1,8 @@
 // COMSC-210 | Lab 19 | Jasmine Suarez
 // IDE used: VS Code
 
+// NOTE: I used ai to generate random reviews to put into reviews.txt
+
 #include <iostream>
 #include <string>
 #include <cstdlib> // rand(), srand()
@@ -88,7 +90,11 @@ int main() {
         Movie("Crazy Rich Asians")
     };
 
-    
+    for (auto m : movies)
+        m.reviewsFile("reviews.txt", 3);
+
+    for (auto m : movies)
+        m.output();
 
     return 0;
 }
