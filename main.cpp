@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdlib> // rand(), srand()
 #include <ctime>   // time()
+#include <fstream> // file input
 using namespace std;
 
 class Movie {
@@ -63,19 +64,14 @@ int main() {
 
     Movie movie1("Mamma Mia");
 
-    char inputMore = 'Y';
-    while (inputMore == 'Y' || inputMore == 'y') {
-        double rating = (rand() % 41 + 10) / 10.0;
-        string comment;
+    ifstream fin("reviews.txt");
 
-        cout << "Enter review comments: ";
-        getline(cin, comment);
-
-        movie1.addFront(rating, comment);
-
-        cout << "Enter another review? Y/N: ";
-        cin >> inputMore;
-        cin.ignore();
+    string comment;
+    if (fin.good()) {
+        while (getline(fin, comment)) {
+            double rating = (rand() % 41 + 10) / 10.0;
+            movie1.addFront(rating, comment);
+        }
     }
 
     movie1.output();
