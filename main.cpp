@@ -40,24 +40,6 @@ public:
         head = newNode;
     }
 
-    // reviewsFile() reads reviews from txt file and randomizes ratings
-    // arguments: filename, numReviews
-    // returns: nothing
-    void reviewsFile(string filename, int numReviews) {
-        ifstream fin(filename);
-
-        string comment;
-        if (fin.good()) {
-            while (getline(fin, comment)) {
-                double rating = (rand() % 41 + 10) / 10.0;
-                addFront(rating, comment);
-            }
-            fin.close();
-        }
-        else
-            cout << "Input file not found.\n";
-    }
-
     // output() traverses linked list, outputs reviews, and calculates average rating
     // arguments: head
     // returns: nothing
@@ -89,6 +71,21 @@ int main() {
         Movie("Shrek"),
         Movie("Crazy Rich Asians")
     };
+
+    ifstream fin(filename);
+
+    string comment;
+    int count = 0;
+    if (fin.good()) {
+        while (getline(fin, comment) && count < numReviews) {
+            double rating = (rand() % 41 + 10) / 10.0;
+            addFront(rating, comment);
+            count++;
+        }
+        fin.close();
+    }
+    else
+        cout << "Input file not found.\n";
 
     for (auto &m : movies)
         m.reviewsFile("reviews.txt", 3);
