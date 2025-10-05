@@ -90,10 +90,10 @@ int main() {
         Movie("Crazy Rich Asians")
     };
 
-    for (auto m : movies)
+    for (auto &m : movies)
         m.reviewsFile("reviews.txt", 3);
 
-    for (auto m : movies)
+    for (auto &m : movies)
         m.output();
 
     return 0;
